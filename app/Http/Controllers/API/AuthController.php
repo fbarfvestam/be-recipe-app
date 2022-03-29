@@ -46,5 +46,15 @@ class AuthController extends BaseController
    
         return $this->handleResponse($success, 'User successfully registered!');
     }
+
+    public function getUser($id) {
+        $user = User::find($id);    
+        return $this->handleResponse($user, 'User found');
+    }
+
+    public function logout() {
+        auth()->user()->tokens()->delete();
+        return response()->json('Logged out successfully, tokens has been deleted.');
+    }
    
 }
