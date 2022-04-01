@@ -17,6 +17,7 @@ class AuthController extends BaseController
             $auth = Auth::user(); 
             $success['token'] =  $auth->createToken('LaravelSanctumAuth')->plainTextToken; 
             $success['name'] =  $auth->name;
+            $success['id'] = $auth->id;
    
             return $this->handleResponse($success, 'User logged-in!');
         } 
@@ -41,8 +42,9 @@ class AuthController extends BaseController
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-        $success['token'] =  $user->createToken('LaravelSanctumAuth')->plainTextToken;
-        $success['name'] =  $user->name;
+        $success['token'] = $user->createToken('LaravelSanctumAuth')->plainTextToken;
+        $success['name'] = $user->name;
+  
    
         return $this->handleResponse($success, 'User successfully registered!');
     }
@@ -52,9 +54,18 @@ class AuthController extends BaseController
         return $this->handleResponse($user, 'User found');
     }
 
-    public function logout() {
-        auth()->user()->tokens()->delete();
+/*     public function logout() {
+        Auth::user()->tokens()->delete();
         return response()->json('Logged out successfully, tokens has been deleted.');
+    } */
+
+    public function logout(User $user){
+
+        $user->tokens()->delete();
+
+        return [
+            'message' => 'Logged out'
+        ];
     }
    
 }
