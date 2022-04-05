@@ -9,49 +9,39 @@ use Illuminate\Support\Facades\Auth;
 
 class ListController extends Controller
 {
-/*     public function index()
+    public function store(Request $request, $id)
+
     {
-        $id = Auth::user()->id;
-        return view('lists', [
-            'lists' => User_List::where('user_id', $id)
+       $returnData = array(
+            'status' => 'error',
+            'message' => ''
+        ); 
+        $attributes = Validator::make($request->all(), [
+            'title' => 'required|string|max:5',
         ]);
-    }
-
-    public function show()
-    {
-        $id = Auth::user()->id;
-        $lists = User_List::where('user_id', $id);
-        
-    } */
-
-    public function store(Request $request)
-    {
-        $attributes = request()->validate([
-            'title' => ['required', 'min:3', 'max:40']
-        ]);
-
-        $attributes['user_id'] = $request->user()->id;
-
-        User_List::create($attributes);
-        
-    }
-
-
-
-/* 
-    public function store(Request $request)
-    {
-        $input = $request->all();
-        $validator = Validator::make($input, [
-            'name' => 'required',
-            'password' => 'required',
-            'email' => 'required'
-        ]);
-        if($validator->fails()){
-            return $this->handleError($validator->errors());       
+        if ($attributes->fails()) {
+            $returnData['message'] = 'Title cannot be longer than 5 characters';
+            return response()->json($returnData, 500);
         }
-        $user = User::create($input);
-        return $this->handleResponse(new UserResource($user), 'User created!');
-    } */
+        $list = User_List::create([
+            'title' => $request['title'],
+            'user_id' => $id
+        ]);
+        return response()->json($list, 200);
+    }
 
+    public function destroy($list_id)
+    {
+        $returnData = array(
+            'status' => 'success',
+            'message' => 'List deleted successfully'
+        ); 
+        $list = User_List::find($list_id);
+        if(is_null($list)){
+            $returnData['message'] = 'List does not exist';
+            return response()->json($returnData);
+        };
+        $list->delete();
+        return response()->json($returnData);
+    }
 }

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\ListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +26,7 @@ Route::middleware('auth:sanctum')->group( function () {
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout']);
+Route::post('create-list/{id}', [ListController::class, 'store']);
+Route::delete('delete-list/{id}', [ListController::class, 'destroy']);
 
 
