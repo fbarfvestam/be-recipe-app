@@ -28,5 +28,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout']);
 Route::post('create-list/{id}', [ListController::class, 'store']);
 Route::delete('delete-list/{id}', [ListController::class, 'destroy']);
+Route::get('get-list/{id}', [ListController::class, 'showList']);
+
 
 

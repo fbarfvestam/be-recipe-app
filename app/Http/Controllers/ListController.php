@@ -17,16 +17,25 @@ class ListController extends Controller
             'message' => ''
         ); 
         $attributes = Validator::make($request->all(), [
-            'title' => 'required|string|max:5',
+            'title' => 'required|string|max:50',
         ]);
         if ($attributes->fails()) {
-            $returnData['message'] = 'Title cannot be longer than 5 characters';
+            $returnData['message'] = 'Title cannot be longer than 50 characters';
             return response()->json($returnData, 500);
         }
         $list = User_List::create([
             'title' => $request['title'],
             'user_id' => $id
         ]);
+        return response()->json($list, 200);
+    }
+
+    public function showList($id) {
+        $list = User_List::where('user_id', $id)->get();
+        $response = array(
+            'status' => 'success',
+            'message' => $list
+        );
         return response()->json($list, 200);
     }
 
