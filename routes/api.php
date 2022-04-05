@@ -19,6 +19,7 @@ use App\Http\Controllers\API\AuthController;
 Route::middleware('auth:sanctum')->group( function () {
     Route::resource('users', UserController::class);
     Route::get('/users/{id}', [AuthController::class, 'getUser']);
+   /*  Route::post('create-list', ) */
 });
 
 Route::post('login', [AuthController::class, 'login']);

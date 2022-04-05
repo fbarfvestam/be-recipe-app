@@ -13,8 +13,10 @@ class CreateUserListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user__lists', function (Blueprint $table) {
+        Schema::create('user_lists', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateUserListsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user__lists');
+        Schema::dropIfExists('user_lists');
     }
 }
