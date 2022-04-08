@@ -21,15 +21,14 @@ use App\Http\Controllers\RecipeController;
 Route::middleware('auth:sanctum')->group(function () {
     Route::resource('users', UserController::class);
     Route::get('/users/{id}', [AuthController::class, 'getUser']);
-    /*  Route::post('create-list', ) */
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('create-list/{id}', [ListController::class, 'store']);
+    Route::delete('delete-list/{id}', [ListController::class, 'destroy']);
+    Route::get('get-list/{id}', [ListController::class, 'showList']);
+    Route::get('get-recipe/{id}', [RecipeController::class, 'getRecipe']);
+    Route::post('recipe-list/{id}', [RecipeController::class, 'addRecipe']);
+    Route::delete('delete-recipe/{id}', [RecipeController::class, 'deleteRecipe']);
 });
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
-Route::post('logout', [AuthController::class, 'logout']);
-Route::post('create-list/{id}', [ListController::class, 'store']);
-Route::delete('delete-list/{id}', [ListController::class, 'destroy']);
-Route::get('get-list/{id}', [ListController::class, 'showList']);
-Route::get('get-recipe/{id}', [RecipeController::class, 'getRecipe']);
-Route::post('recipe-list/{id}', [RecipeController::class, 'addRecipe']);
-Route::delete('delete-recipe/{id}', [RecipeController::class, 'deleteRecipe']);
