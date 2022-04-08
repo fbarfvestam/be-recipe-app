@@ -12,10 +12,10 @@ class ListController extends Controller
     public function store(Request $request, $id)
 
     {
-       $returnData = array(
+        $returnData = array(
             'status' => 'error',
             'message' => ''
-        ); 
+        );
         $attributes = Validator::make($request->all(), [
             'title' => 'required|string|max:50',
         ]);
@@ -30,7 +30,8 @@ class ListController extends Controller
         return response()->json($list, 200);
     }
 
-    public function showList($id) {
+    public function showList($id)
+    {
         $list = User_List::where('user_id', $id)->get();
         $response = array(
             'status' => 'success',
@@ -44,9 +45,9 @@ class ListController extends Controller
         $returnData = array(
             'status' => 'success',
             'message' => 'List deleted successfully'
-        ); 
+        );
         $list = User_List::find($list_id);
-        if(is_null($list)){
+        if (is_null($list)) {
             $returnData['message'] = 'List does not exist';
             return response()->json($returnData);
         };
