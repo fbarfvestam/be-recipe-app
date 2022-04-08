@@ -19,7 +19,7 @@ class RecipeController extends Controller
         return response($response, 201);
     }
 
-    public function addRecipe($id, Request $request)
+    public function addRecipe(Request $request, $id)
     {
         $exist = RecipeList::where('recipe_id', $request['recipe_id'])->where('user__list_id', $id);
 

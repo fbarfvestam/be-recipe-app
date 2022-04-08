@@ -12,10 +12,10 @@ class RecipeList extends Model
     protected $fillable = [
         'recipe',
         'recipe_id',
-        'user_list_id',
+        'user__list_id',
     ];
 
-    public function user_lists() 
+    public function user_lists()
     {
         return $this->belongsTo(User_List::class, 'id');
     }
