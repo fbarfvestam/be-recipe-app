@@ -40,4 +40,19 @@ class RecipeController extends Controller
         ];
         return response($response, 404);
     }
+
+    public function deleteRecipe($id)
+    {
+        $returnData = array(
+            'status' => 'success',
+            'message' => 'Recipe deleted successfully'
+        );
+        $list = RecipeList::find($id);
+        if (is_null($list)) {
+            $returnData['message'] = 'Recipe does not exist';
+            return response()->json($returnData);
+        };
+        $list->delete();
+        return response()->json($returnData);
+    }
 }

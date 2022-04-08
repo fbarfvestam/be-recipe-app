@@ -32,3 +32,4 @@ Route::delete('delete-list/{id}', [ListController::class, 'destroy']);
 Route::get('get-list/{id}', [ListController::class, 'showList']);
 Route::get('get-recipe/{id}', [RecipeController::class, 'getRecipe']);
 Route::post('recipe-list/{id}', [RecipeController::class, 'addRecipe']);
+Route::delete('delete-recipe/{id}', [RecipeController::class, 'deleteRecipe']);
